@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinky Sub</title>
+<meta name="description" content="A one-tap arcade game for iPhone. Your submarine floats — tap to dive. Thread the coral, mind the cave roof, unlock fifty-one hulls.">
+<meta property="og:title" content="Sinky Sub">
+<meta property="og:description" content="Your submarine floats. That's the whole problem. A one-tap arcade game for iPhone.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sinkysub.com/">
+<meta name="theme-color" content="#0B3B4A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+:root{
+  --deep:#082F3D; --sea:#12667E; --reef:#2E96AC; --shallow:#4FB6C6;
+  --sand:#F2DFA8; --sand-deep:#E3C889;
+  --coral:#E85D75; --kelp:#5FB07A;
+  --ink:#0A2530; --paper:#FFFFFF;
+  --foam:rgba(255,255,255,.86);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink);
+  font-family:Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.65;
+  background:var(--deep);
+  -webkit-font-smoothing:antialiased;
+}
+.px{font-family:Silkscreen,"Courier New",monospace; font-weight:700; letter-spacing:.01em}
+
+/* ---------- hero: the water column ---------- */
+.hero{
+  position:relative; overflow:hidden; text-align:center;
+  padding:76px 20px 0;
+  background:linear-gradient(180deg,#5CC2D0 0%,var(--reef) 26%,var(--sea) 62%,var(--deep) 100%);
+}
+/* light shafts, the way the game draws them */
+.hero::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(103deg,transparent 18%,rgba(255,255,255,.16) 20%,transparent 24%),
+    linear-gradient(97deg,transparent 44%,rgba(255,255,255,.12) 46%,transparent 51%),
+    linear-gradient(107deg,transparent 68%,rgba(255,255,255,.14) 70%,transparent 75%);
+}
+.hero-inner{position:relative; max-width:1000px; margin:0 auto}
+.wordmark{
+  font-family:Silkscreen,"Courier New",monospace; font-weight:700;
+  /* Silkscreen is a wide face and the name must not break, so the floor here
+     is set low enough that nine characters still fit a 320px phone. */
+  font-size:clamp(1.55rem,10.5vw,5.6rem); line-height:.98; margin:0;
+  color:#EAF7FA; letter-spacing:.02em;
+  text-shadow:0 5px 0 #0C4152, 0 9px 0 rgba(8,47,61,.35);
+}
+.tag{
+  margin:22px auto 0; max-width:30ch; color:#08313F; font-weight:700;
+  font-size:clamp(1.06rem,2.6vw,1.3rem); line-height:1.45;
+}
+.tag em{font-style:normal; color:var(--paper)}
+
+.cta{margin:32px 0 0; display:flex; flex-direction:column; align-items:center; gap:11px}
+.badge{
+  display:inline-flex; align-items:center; gap:11px;
+  background:var(--ink); color:var(--paper); text-decoration:none;
+  padding:13px 26px; border-radius:12px; font-weight:700; font-size:1.02rem;
+  box-shadow:0 4px 0 rgba(4,22,29,.45); transition:transform .12s ease, box-shadow .12s ease;
+}
+.badge:hover,.badge:focus-visible{transform:translateY(-2px); box-shadow:0 6px 0 rgba(4,22,29,.45)}
+.badge:focus-visible{outline:3px solid var(--sand); outline-offset:3px}
+.cta small{
+  font-family:Silkscreen,monospace; font-size:11px; letter-spacing:.13em;
+  text-transform:uppercase; color:#08313F;
+}
+
+/* ---------- the three screens ---------- */
+.shots{
+  position:relative; display:flex; justify-content:center; align-items:flex-end;
+  gap:clamp(10px,3vw,34px); margin:52px auto 0; max-width:940px; padding:0 8px;
+}
+.shots img{
+  width:clamp(132px,25vw,270px); height:auto; display:block;
+  border-radius:16px; border:3px solid rgba(8,47,61,.55);
+  box-shadow:0 18px 40px -14px rgba(3,20,27,.75);
+}
+.shots img:nth-child(2){margin-bottom:clamp(14px,4vw,42px)}
+
+/* seabed under the screens */
+.floor{
+  position:relative; height:74px; margin-top:-26px;
+  background:linear-gradient(180deg,transparent,var(--deep) 62%);
+}
+
+/* ---------- body sections ---------- */
+main{background:var(--deep)}
+.band{max-width:860px; margin:0 auto; padding:8px 24px 0}
+h2{
+  font-family:Silkscreen,monospace; font-weight:700;
+  font-size:clamp(1.18rem,3.4vw,1.5rem); color:var(--sand);
+  letter-spacing:.02em; margin:64px 0 18px; text-wrap:balance;
+}
+.band p{color:#CFE6EC; max-width:64ch}
+.band p strong{color:var(--paper)}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:16px; margin:26px 0 0}
+.card{
+  background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.12);
+  border-radius:14px; padding:20px 22px;
+}
+.card h3{
+  font-family:Silkscreen,monospace; font-size:.85rem; letter-spacing:.05em;
+  color:var(--shallow); margin:0 0 9px; font-weight:700;
+}
+.card p{margin:0; font-size:.96rem; color:#C4DDE4}
+
+/* the count, as a small piece of arcade furniture */
+.count{
+  display:flex; align-items:baseline; justify-content:center; gap:14px;
+  margin:34px auto 0; padding:22px 26px; max-width:430px;
+  background:var(--sand); color:var(--ink); border-radius:14px;
+  box-shadow:0 5px 0 var(--sand-deep);
+}
+.count .n{font-family:Silkscreen,monospace; font-size:2.9rem; line-height:1; font-weight:700}
+.count .t{font-weight:700; text-align:left; line-height:1.3}
+.count .t span{display:block; font-size:.82rem; font-weight:600; color:#5C4A22}
+
+footer{
+  margin:78px 0 0; padding:30px 24px 46px; text-align:center;
+  background:#061F29; color:#8FB3BD; font-size:.9rem;
+}
+footer nav{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:0 0 18px}
+footer a{color:var(--shallow); text-decoration:none; font-weight:700}
+footer a:hover,footer a:focus-visible{text-decoration:underline}
+footer p{margin:5px 0}
+.legal{font-size:.82rem; color:#5E838E}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:560px){
+  .hero{padding-top:54px}
+  .shots img:nth-child(3){display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1 class="wordmark">SINKY&nbsp;SUB</h1>
+    <p class="tag">Your submarine floats. <em>That's the whole problem.</em></p>
+
+    <div class="cta">
+      <a class="badge" href="#" id="store">Coming soon to the App&nbsp;Store</a>
+      <small>iPhone · iOS 16+</small>
+    </div>
+
+    <div class="shots">
+      <img src="shot-2-title.png" alt="The Sinky Sub title screen, a yellow submarine bobbing beneath the logo in a coral reef." width="515" height="1120" loading="lazy">
+      <img src="shot-1-gameplay.png" alt="Gameplay: the submarine threading a gap between two pink coral columns, score 5." width="515" height="1120">
+      <img src="shot-4-medals.png" alt="The scores screen showing a best of 42 and tallies of copper, silver, gold and diamond medals." width="515" height="1120" loading="lazy">
+    </div>
+  </div>
+  <div class="floor"></div>
+</header>
+
+<main>
+  <div class="band">
+
+    <h2>One tap, one life</h2>
+    <p>Everything rises. Your sub is permanently buoyant, so it climbs on its own and
+    every tap fires the thrusters <strong>downward</strong>. Thread the gaps in the coral,
+    stay off the cave roof, and see how far into the reef you get. There are no
+    continues, no power-ups and no second chances — just the one score.</p>
+
+    <div class="count">
+      <span class="n px">51</span>
+      <span class="t">submarines to unlock<span>ten by score · thirty-nine by medal · two nobody tells you about</span></span>
+    </div>
+
+    <h2>What makes it fair</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Real hitboxes</h3>
+        <p>Collision follows the drawn art, not a box around it. If you can see daylight
+        through a gap, you fit through it. No run ends on something you didn't touch.</p>
+      </div>
+      <div class="card">
+        <h3>Medals, not luck</h3>
+        <p>Copper through diamond, awarded every run that clears a tier rather than only
+        on a personal best. A fiftieth copper still counts toward something.</p>
+      </div>
+      <div class="card">
+        <h3>Made from scratch</h3>
+        <p>Every sprite, every sound effect and the whole soundtrack were written for
+        this game. No stock art, no borrowed audio, no asset packs.</p>
+      </div>
+      <div class="card">
+        <h3>Plays anywhere</h3>
+        <p>No account, no sign-in, no internet needed. Your progress follows your Apple
+        Account, so a new phone doesn't cost you fifty-one submarines.</p>
+      </div>
+    </div>
+
+    <h2>Get in touch</h2>
+    <p>Found a bug, or got stuck on something? Write to
+    <a href="mailto:support@sinkysub.com" style="color:var(--shallow);font-weight:700">support@sinkysub.com</a>
+    and a real person reads it.</p>
+
+  </div>
+</main>
+
+<footer>
+  <nav>
+    <a href="support.html">Support</a>
+    <a href="privacy-policy.html">Privacy</a>
+    <a href="mailto:support@sinkysub.com">support@sinkysub.com</a>
+  </nav>
+  <p class="legal">Copyright &copy; 2026 James Bergeron. All rights reserved.</p>
+  <p class="legal">Sinky Sub and the Sinky Sub logo are trademarks of James Bergeron.</p>
+</footer>
+
+</body>
+</html>
