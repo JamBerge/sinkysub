@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sinky Sub</title>
-<meta name="description" content="Tap to dive, avoid obstacles. A one-tap arcade game for iPhone.">
+<meta name="description" content="Fifty-one submarines to collect, earned by how deep you get — and five slots to draw your own. A one-life diving game for iPhone.">
 <meta property="og:title" content="Sinky Sub">
-<meta property="og:description" content="Tap to dive, avoid obstacles. A one-tap arcade game for iPhone.">
+<meta property="og:description" content="Fifty-one submarines to collect, earned by how deep you get — and five slots to draw your own. A one-life diving game for iPhone.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sinkysub.com/">
+<meta property="og:image" content="https://sinkysub.com/shot-title.png">
 <meta name="theme-color" content="#082F3D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,14 +19,16 @@
   --deep:#082F3D; --sea:#12667E; --reef:#2E96AC;
   --sand:#F2DFA8; --shallow:#4FB6C6;
   --ink:#0A2530; --paper:#FFFFFF;
+  --night:#06202A;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 body{
   margin:0; color:var(--ink); background:var(--deep);
   font-family:Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
 }
+img{max-width:100%}
 
 /* ---------- hero: the water column ---------- */
 .hero{
@@ -51,12 +54,12 @@ h1{
   text-shadow:0 5px 0 #0C4152, 0 9px 0 rgba(8,47,61,.35);
 }
 .tag{
-  margin:22px auto 0; max-width:26ch; color:var(--paper); font-weight:800;
+  margin:22px auto 0; max-width:30ch; color:var(--paper); font-weight:800;
   font-size:clamp(1.1rem,3vw,1.45rem); line-height:1.4;
   text-shadow:0 2px 6px rgba(6,32,42,.4);
 }
 .sub{
-  margin:10px auto 0; max-width:30ch; color:#0A3644; font-weight:700;
+  margin:10px auto 0; max-width:34ch; color:#0A3644; font-weight:700;
   font-size:clamp(.98rem,2.3vw,1.1rem);
 }
 
@@ -90,16 +93,67 @@ h1{
 .shots img:nth-child(2){margin-bottom:clamp(10px,3.5vw,38px)}
 .floor{height:96px; background:linear-gradient(180deg,transparent,var(--deep) 62%); margin-top:-30px}
 
+/* ---------- features ---------- */
+main{background:var(--deep)}
+.band{padding:clamp(48px,7vw,86px) 20px; border-top:1px solid rgba(255,255,255,.06)}
+.band:nth-child(even){background:var(--night)}
+.row{
+  max-width:1000px; margin:0 auto;
+  display:flex; align-items:center; gap:clamp(26px,5vw,64px);
+}
+.row.flip{flex-direction:row-reverse}
+.row figure{margin:0; flex:0 0 auto}
+.row figure img{
+  width:clamp(170px,30vw,264px); height:auto; display:block;
+  border-radius:14px; border:3px solid rgba(8,47,61,.7);
+  box-shadow:0 20px 44px -16px rgba(2,14,19,.85);
+}
+.copy{flex:1 1 auto; min-width:0}
+.copy h2{
+  font-family:Silkscreen,monospace; font-weight:700; margin:0 0 14px;
+  font-size:clamp(1.12rem,3.1vw,1.72rem); line-height:1.25;
+  color:var(--sand); letter-spacing:.01em;
+}
+.copy p{margin:0 0 14px; color:#BFD9E1}
+.copy p:last-child{margin-bottom:0}
+.copy strong{color:#EAF7FA}
+
+/* two side by side, for the bands */
+.pair{display:flex; gap:clamp(12px,2.6vw,26px); flex:0 0 auto}
+.pair img{
+  width:clamp(130px,21vw,196px); height:auto; display:block;
+  border-radius:14px; border:3px solid rgba(8,47,61,.7);
+  box-shadow:0 20px 44px -16px rgba(2,14,19,.85);
+}
+
+/* ---------- the short facts ---------- */
+.facts{
+  max-width:1000px; margin:0 auto; padding:0;
+  display:grid; gap:clamp(18px,3vw,30px);
+  grid-template-columns:repeat(auto-fit,minmax(248px,1fr));
+}
+.fact h3{
+  font-family:Silkscreen,monospace; font-weight:700; margin:0 0 9px;
+  font-size:.96rem; color:var(--shallow); letter-spacing:.02em; line-height:1.35;
+}
+.fact p{margin:0; color:#A8C6D0; font-size:.97rem}
+
 footer{
   padding:16px 24px 52px; text-align:center;
-  background:var(--deep); color:#8FB3BD; font-size:.9rem;
+  background:var(--night); color:#8FB3BD; font-size:.9rem;
+  border-top:1px solid rgba(255,255,255,.06);
 }
-footer nav{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:0 0 20px}
+footer nav{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center; margin:28px 0 20px}
 footer a{color:var(--shallow); text-decoration:none; font-weight:700}
 footer a:hover,footer a:focus-visible{text-decoration:underline}
 footer p{margin:5px 0; font-size:.82rem; color:#5E838E}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:760px){
+  .row,.row.flip{flex-direction:column; text-align:center}
+  .copy h2{font-size:1.18rem}
+  .pair{justify-content:center}
+}
 @media (max-width:560px){
   .hero{padding-top:54px}
 }
@@ -110,8 +164,8 @@ footer p{margin:5px 0; font-size:.82rem; color:#5E838E}
 <header class="hero">
   <div class="hero-inner">
     <h1>SINKY&nbsp;SUB</h1>
-    <p class="tag">Tap to dive, avoid obstacles.</p>
-    <p class="sub">Unlock new submarines as you go.</p>
+    <p class="tag">Fifty-one submarines are down there. You start with one.</p>
+    <p class="sub">One life per dive. How far down can you take it?</p>
 
     <div class="cta">
       <a class="badge" href="#">Coming soon to the App&nbsp;Store</a>
@@ -119,13 +173,113 @@ footer p{margin:5px 0; font-size:.82rem; color:#5E838E}
     </div>
 
     <div class="shots">
-      <img src="shot-title.png" alt="The Sinky Sub title screen, a yellow submarine bobbing beneath the logo in a coral reef." width="515" height="1120">
-      <img src="shot-selector.png" alt="The submarine selector, showing the yellow starter hull marked EQUIPPED, with arrows for browsing the rest." width="515" height="1120">
-      <img src="shot-gameplay.png" alt="Gameplay: the yellow submarine diving between tall pink coral columns, score 19." width="515" height="1120">
+      <img src="shot-title.png" alt="The Sinky Sub title screen: the yellow submarine bobbing beneath the logo, over a kelp bed." width="440" height="956" loading="eager">
+      <img src="shot-kelp.png" alt="Diving at 255 metres, the yellow submarine threading the gap between two kelp plants." width="440" height="956" loading="eager">
+      <img src="shot-hangar.png" alt="The Hangar, showing a shelf of collected submarine hulls with the yellow one equipped." width="440" height="956" loading="eager">
     </div>
   </div>
   <div class="floor"></div>
 </header>
+
+<main>
+
+  <section class="band">
+    <div class="row">
+      <figure>
+        <img src="shot-hangar.png" alt="The Hangar: twelve submarine hulls on a shelf, the yellow one badged as equipped." width="440" height="956" loading="lazy">
+      </figure>
+      <div class="copy">
+        <h2>Fifty-one hulls to collect</h2>
+        <p>Sixteen unlock by reaching a depth. Thirty-three are bought with
+        anchors — <strong>SHALLOWS</strong> at 100 M, <strong>REEF</strong> at
+        200, <strong>TRENCH</strong> at 300, <strong>ABYSS</strong> at 400, and
+        <strong>HADAL</strong> and <strong>CHALLENGER</strong> for the dives
+        that go past 600.</p>
+        <p>You earn an anchor on every dive that reaches its depth, not just
+        your best one, so a bad streak still leaves you something. A fiftieth
+        SHALLOWS counts as much as your first.</p>
+        <p>Two of the fifty-one, nobody will tell you how to find.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="row flip">
+      <figure>
+        <img src="shot-designer.png" alt="The sub designer: a hand-drawn cyan submarine on a pixel grid, above three rows of colour swatches and the brush, fill, undo, save and cancel tools." width="440" height="956" loading="lazy">
+      </figure>
+      <div class="copy">
+        <h2>Draw your own</h2>
+        <p>Five slots in the Hangar are yours to paint. The hull on a grid,
+        <strong>twenty-seven colours</strong>, a brush, a fill bucket and an
+        undo — and a name you give it on a keyboard the game draws itself.</p>
+        <p>Every pixel inside the outline belongs to you, the lookout window
+        included: paint over it, redraw it, or leave the hull blank where it
+        was. Only the outline, the periscope and the propeller stay put,
+        because the outline is the shape the game measures your crashes
+        against.</p>
+        <p>Save it and you are diving it. Your designs follow you to your
+        other devices. The first slot comes with the game.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="row">
+      <div class="pair">
+        <img src="shot-kelp.png" alt="The kelp at 255 metres: two kelp plants hanging from the cave roof, a jellyfish drifting past." width="440" height="956" loading="lazy">
+        <img src="shot-midnight.png" alt="The midnight at 906 metres: the cave almost black, lit only by the submarine's own lamp, with the rock edges glowing." width="440" height="956" loading="lazy">
+      </div>
+      <div class="copy">
+        <h2>The water changes as you go</h2>
+        <p>The reef gives way to <strong>kelp</strong> at 200 M, to a moored
+        <strong>minefield</strong> at 400 M, and at 600 M to something with
+        <strong>arms</strong>. Past 800 M the light goes: down there the only
+        thing lit is what your own lamp reaches.</p>
+        <p>Each band is a little tighter and a little quicker than the one
+        above it. Every dive meets the same water at the same depth, so
+        nobody's run is luckier than anybody else's.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="facts">
+      <div class="fact">
+        <h3>Depth, not points</h3>
+        <p>Your score is how far down you got, run as an odometer that keeps
+        the distance you covered even if the dive ends between two columns.</p>
+      </div>
+      <div class="fact">
+        <h3>Built to be fair</h3>
+        <p>Collision follows the drawn art, not a box around it. If you can
+        see daylight through a gap, you fit through it.</p>
+      </div>
+      <div class="fact">
+        <h3>Made from scratch</h3>
+        <p>Every sprite, every sound effect and the whole soundtrack were
+        written for this game. No stock art, no asset packs.</p>
+      </div>
+      <div class="fact">
+        <h3>Plays anywhere</h3>
+        <p>No account. No internet needed. No timers, no lives to wait for,
+        nothing asking you to come back tomorrow.</p>
+      </div>
+      <div class="fact">
+        <h3>One life per dive</h3>
+        <p>Your submarine floats upward on its own. Tap to fire the thrusters
+        and dive. Touch the roof and the run is over.</p>
+      </div>
+      <div class="fact">
+        <h3>Two things for sale</h3>
+        <p>Free, with a banner across the top. One purchase removes it for
+        good, and one opens the other four drawing slots. Nothing else, and
+        nothing timed.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <footer>
   <nav>
