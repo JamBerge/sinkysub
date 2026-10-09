@@ -118,13 +118,28 @@ main{background:var(--deep)}
 .copy p:last-child{margin-bottom:0}
 .copy strong{color:#EAF7FA}
 
-/* two side by side, for the bands */
-.pair{display:flex; gap:clamp(12px,2.6vw,26px); flex:0 0 auto}
-.pair img{
-  width:clamp(130px,21vw,196px); height:auto; display:block;
-  border-radius:14px; border:3px solid rgba(8,47,61,.7);
-  box-shadow:0 20px 44px -16px rgba(2,14,19,.85);
+/* the five bands, in order, across the page */
+.bands{max-width:1000px; margin:0 auto}
+.bands-head{text-align:center; margin:0 auto 34px; max-width:56ch}
+.strip{
+  list-style:none; margin:0; padding:0 0 6px;
+  display:flex; gap:clamp(10px,1.8vw,20px); align-items:flex-start;
+  /* Five do not fit a phone, so the row scrolls there rather than
+     shrinking each one into a stamp. */
+  overflow-x:auto; scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
 }
+.strip li{flex:0 0 auto; width:clamp(132px,18vw,180px); scroll-snap-align:center; text-align:center}
+.strip img{
+  width:100%; height:auto; display:block;
+  border-radius:12px; border:3px solid rgba(8,47,61,.7);
+  box-shadow:0 16px 36px -14px rgba(2,14,19,.85);
+}
+.strip h3{
+  font-family:Silkscreen,monospace; font-weight:700; margin:14px 0 2px;
+  font-size:.82rem; color:var(--sand); letter-spacing:.01em;
+}
+.strip p{margin:0; color:#8FB3BD; font-size:.82rem; font-weight:700}
 
 /* ---------- the short facts ---------- */
 .facts{
@@ -167,9 +182,14 @@ footer p{margin:5px 0; font-size:.82rem; color:#5E838E}
     <p class="tag">Fifty-one submarines are down there. You start with one.</p>
     <p class="sub">One life per dive. How far down can you take it?</p>
 
+    <!-- ON APPROVAL: swap the two lines below for the one under them, with
+         the app's ID from App Store Connect in place of 0000000000. The ID is
+         on the App Information page, and the URL needs nothing else — Apple
+         resolves the slug itself. Nothing else on the page has to change. -->
     <div class="cta">
       <a class="badge" href="#">Coming soon to the App&nbsp;Store</a>
       <small>iPhone · iOS 16+</small>
+      <!-- <a class="badge" href="https://apps.apple.com/app/id0000000000">Download on the App&nbsp;Store</a> -->
     </div>
 
     <div class="shots">
@@ -225,21 +245,35 @@ footer p{margin:5px 0; font-size:.82rem; color:#5E838E}
   </section>
 
   <section class="band">
-    <div class="row">
-      <div class="pair">
-        <img src="shot-kelp.png" alt="The kelp at 255 metres: two kelp plants hanging from the cave roof, a jellyfish drifting past." width="440" height="956" loading="lazy">
-        <img src="shot-midnight.png" alt="The midnight at 906 metres: the cave almost black, lit only by the submarine's own lamp, with the rock edges glowing." width="440" height="956" loading="lazy">
-      </div>
-      <div class="copy">
-        <h2>The water changes as you go</h2>
-        <p>The reef gives way to <strong>kelp</strong> at 200 M, to a moored
-        <strong>minefield</strong> at 400 M, and at 600 M to something with
-        <strong>arms</strong>. Past 800 M the light goes: down there the only
-        thing lit is what your own lamp reaches.</p>
+    <div class="bands">
+      <div class="copy bands-head">
+        <h2>Five waters to dive through</h2>
         <p>Each band is a little tighter and a little quicker than the one
-        above it. Every dive meets the same water at the same depth, so
+        above it, and every dive meets the same water at the same depth — so
         nobody's run is luckier than anybody else's.</p>
       </div>
+      <ol class="strip">
+        <li>
+          <img src="shot-reef.png" alt="The reef: the yellow submarine among coral under a sunlit cave roof." width="440" height="956" loading="lazy">
+          <h3>The Reef</h3><p>0 M</p>
+        </li>
+        <li>
+          <img src="shot-kelp.png" alt="The kelp: tall kelp plants hanging from the cave roof, a jellyfish drifting past." width="440" height="956" loading="lazy">
+          <h3>The Kelp</h3><p>200 M</p>
+        </li>
+        <li>
+          <img src="shot-minefield.png" alt="The minefield: spiked contact mines swinging on long chains from the cave roof." width="440" height="956" loading="lazy">
+          <h3>The Minefield</h3><p>400 M</p>
+        </li>
+        <li>
+          <img src="shot-kraken.png" alt="The kraken: purple suckered arms reaching down from the roof and up from the seabed." width="440" height="956" loading="lazy">
+          <h3>The Kraken</h3><p>600 M</p>
+        </li>
+        <li>
+          <img src="shot-midnight.png" alt="The midnight: the cave almost black, lit only by the submarine's own lamp, the rock edges glowing." width="440" height="956" loading="lazy">
+          <h3>The Midnight</h3><p>800 M</p>
+        </li>
+      </ol>
     </div>
   </section>
 
