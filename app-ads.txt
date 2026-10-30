@@ -1,0 +1,12 @@
+# Sinky Sub
+# https://apps.apple.com/app/id6800868309
+#
+# Authorised sellers of this app's ad inventory, in the IAB app-ads.txt
+# format. The publisher id is the one in GADApplicationIdentifier in the
+# app's Info.plist, and the last field is Google's own certification
+# authority id, which is the same for every publisher.
+#
+# One line because there is one seller. No mediation, no exchanges, no
+# resellers. If a mediation partner is ever added it needs its own line
+# here or it will not be able to bid.
+google.com, pub-5796754811765328, DIRECT, f08c47fec0942fa0
